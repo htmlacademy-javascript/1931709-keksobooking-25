@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
-* Студент: [Евгений Харитонов](https://up.htmlacademy.ru/javascript/25/user/1931709).
-* Наставник: `Неизвестно`.
+* Студент: [Евгений Харитонов](https://htmlacademy.ru/profile/id1931709).
+* Наставник: [Артём Рудов](https://htmlacademy.ru/profile/artrudov).
 
 ---
 

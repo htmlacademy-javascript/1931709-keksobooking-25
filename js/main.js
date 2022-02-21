@@ -1,10 +1,11 @@
 const generateRandomNumber = (min, max) => {
   const range = max - min;
+
   if (range > 0) {
     return Math.random() * (range + 1) + min;
   }
-  return min >= 0 ? min : 0;
 
+  return min >= 0 ? min : 0;
 };
 
 const getRandomInteger = (min, max) => Math.floor(generateRandomNumber(min, max));

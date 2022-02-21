@@ -1,5 +1,6 @@
 const generateRandomNumber = (min, max) => {
   const range = max - min;
+  
   if (range > 0) {
     return Math.random() * (range + 1) + min;
   }

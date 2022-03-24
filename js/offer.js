@@ -36,27 +36,27 @@ const getTimeBooking = (checkin, checkout) => {
   }
 };
 
-const createPhotosList = (container, items ) => {
+const createPhotosList = (container, photos ) => {
   container.innerHTML = '';
 
-  if (items.length) {
-    items.forEach((photo) => {
-      const itemList = popupPhoto.cloneNode(true);
-      itemList.src = photo;
-      container.append(itemList);
+  if (photos.length) {
+    photos.forEach((photo) => {
+      const photosItem = popupPhoto.cloneNode(true);
+      photosItem.src = photo;
+      container.append(photosItem);
     });
   } else {
     container.remove();
   }
 };
 
-const getFeaturesList = (container, items) => {
+const getFeaturesList = (container, features) => {
   container.innerHTML = '';
 
-  items.forEach( ( item ) => {
+  features.forEach( ( feature ) => {
     const elementList = document.createElement('li');
     elementList.classList.add('popup__feature');
-    elementList.classList.add(`popup__feature--${item}`);
+    elementList.classList.add(`popup__feature--${feature}`);
     container.append(elementList);
   });
 };

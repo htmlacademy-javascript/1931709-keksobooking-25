@@ -8,10 +8,16 @@ const generateRandomNumber = (min, max) => {
   return min >= 0 ? min : 0;
 };
 
-export const getRandomInteger = (min, max) => Math.floor(generateRandomNumber(min, max));
+const addClassHidden = ( element, className ) => {
+  element.classList.add(className);
+};
 
-export const getRandomFloat = (min, max, fraction) => +generateRandomNumber(min, max).toFixed(fraction);
+const getRandomInteger = (min, max) => Math.floor(generateRandomNumber(min, max));
 
-export const getRandomArrayElements = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+const getRandomFloat = (min, max, fraction) => +generateRandomNumber(min, max).toFixed(fraction);
 
-export const getRandomLengthArray = (array) => Array.from({length: getRandomInteger(1, array.length)}, () => getRandomArrayElements(array));
+const getRandomArrayElements = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+
+const getRandomLengthArray = (array) => Array.from({length: getRandomInteger(1, array.length)}, () => getRandomArrayElements(array));
+
+export { addClassHidden, getRandomInteger, getRandomFloat, getRandomArrayElements, getRandomLengthArray };

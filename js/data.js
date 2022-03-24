@@ -7,13 +7,13 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
-const ROOMS = 5;
+const ROOMS = 3;
 const GUESTS = 4;
 const OFFER_LENGTH = 10;
 
 const getOfferList = () => {
   const avatarNumber = getRandomInteger(1, 10);
-  const randomPrice = getRandomInteger(10, 1000);
+  const randomPrice = getRandomInteger(1000, 5000);
   const lat = getRandomFloat(35.65000, 35.70000, 5);
   const lng = getRandomFloat(139.70000, 139.80000, 5);
 

@@ -1,13 +1,11 @@
-/* eslint-disable no-return-assign */
 import { getAllRandomOffer } from './data.js';
-import { addClassHidden } from './util.js';
-const TEMPLATE_FRAGMENT = document.querySelector('#card').content;
-const TEMPLATE = TEMPLATE_FRAGMENT.querySelector('.popup');
-const FRAGMENT = document.createDocumentFragment();
 const CARDS_DATA = getAllRandomOffer();
-const MAP_CANVAS = document.querySelector('#map-canvas');
-const POPUP_PHOTO = TEMPLATE_FRAGMENT.querySelector('.popup__photo');
-const HIDDEN_CLASS = 'hidden';
+const templateFragment = document.querySelector('#card').content;
+const template = templateFragment.querySelector('.popup');
+const fragment = document.createDocumentFragment();
+const mapCanvas = document.querySelector('#map-canvas');
+const popupPhoto = templateFragment.querySelector('.popup__photo');
+
 const areaTypes = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -16,26 +14,24 @@ const areaTypes = {
   hotel: 'Отель'
 };
 
-const insertContentTemplate = (element, content, tag = 'textContent') => element[tag] = content;
-
-const toggleContent = ( item, itemNode, tag ) => {
-  if( item ) {
-    insertContentTemplate(itemNode, item, tag);
+const toggleContent = (item, itemNode, tag = 'textContent') => {
+  if (item) {
+    itemNode[tag] = item;
   } else {
-    addClassHidden(itemNode, HIDDEN_CLASS);
+    itemNode.remove();
   }
 };
 
-const getPrice = ( price ) => price ? `${price} ₽/ночь.` : '';
+const getPrice = (price) => price ? `${price} ₽/ночь.` : '';
 
-const getCapacityOffer = ( rooms, guests ) => {
-  if( rooms && guests ) {
+const getCapacityOffer = (rooms, guests) => {
+  if (rooms && guests) {
     return `${ rooms } комнаты для ${ guests } гостей.`;
   }
 };
 
-const getTimeBooking = ( checkin, checkout ) => {
-  if( checkin && checkout ) {
+const getTimeBooking = (checkin, checkout) => {
+  if (checkin && checkout) {
     return `Заезд после ${ checkin }, выезд до ${ checkout }.`;
   }
 };
@@ -43,17 +39,21 @@ const getTimeBooking = ( checkin, checkout ) => {
 const createPhotosList = (container, items ) => {
   container.innerHTML = '';
 
-  items.forEach( (photo) => {
-    const itemList = POPUP_PHOTO.cloneNode(true);
-    itemList.src = photo;
-    container.append(itemList);
-  });
+  if (items.length) {
+    items.forEach((photo) => {
+      const itemList = popupPhoto.cloneNode(true);
+      itemList.src = photo;
+      container.append(itemList);
+    });
+  } else {
+    container.remove();
+  }
 };
 
 const getFeaturesList = (container, items) => {
   container.innerHTML = '';
 
-  items.forEach( (item) => {
+  items.forEach( ( item ) => {
     const elementList = document.createElement('li');
     elementList.classList.add('popup__feature');
     elementList.classList.add(`popup__feature--${item}`);
@@ -62,12 +62,19 @@ const getFeaturesList = (container, items) => {
 };
 
 const createCard = ({ author, offer }) => {
-  const element = TEMPLATE.cloneNode(true);
+  const element = template.cloneNode(true);
   const { avatar } = author;
   const { title, address, price, rooms, guests, type, checkin, checkout, features, description, photos } = offer;
   const featuresList = element.querySelector('.popup__features');
   const popupPhotos = element.querySelector('.popup__photos');
 
+  const getArrayFromData = (arr, list, dispatch) => {
+    if (arr.length) {
+      dispatch(list, arr);
+    } else {
+      list.remove();
+    }
+  };
   toggleContent(avatar, element.querySelector('.popup__avatar'), 'src');
   toggleContent(title, element.querySelector('.popup__title'));
   toggleContent(address, element.querySelector('.popup__text--address'));
@@ -76,28 +83,17 @@ const createCard = ({ author, offer }) => {
   toggleContent(getCapacityOffer(rooms, guests), element.querySelector('.popup__text--capacity'));
   toggleContent(getTimeBooking(checkin, checkout), element.querySelector('.popup__text--time'));
   toggleContent(description, element.querySelector('.popup__description'));
+  toggleContent(photos, popupPhotos);
+  getArrayFromData(features, featuresList, getFeaturesList);
+  getArrayFromData(photos, popupPhotos, createPhotosList);
 
-  if (photos.length) {
-    createPhotosList(popupPhotos, photos);
-  } else {
-    addClassHidden(popupPhotos);
-  }
-
-  if(features.length){
-    getFeaturesList(featuresList, features);
-  } else {
-    addClassHidden(featuresList);
-  }
-
-  return FRAGMENT.append(element);
+  fragment.append(element);
 };
 
-const getOffers = ( cards ) => {
-  cards.forEach((card) => {
-    createCard(card);
-  });
+const getOffers = (cards) => {
+  cards.forEach(createCard);
 };
 
 getOffers(CARDS_DATA);
 
-MAP_CANVAS.appendChild(FRAGMENT.children[0]);
+mapCanvas.appendChild(fragment.children[0]);

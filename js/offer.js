@@ -36,10 +36,10 @@ const getTimeBooking = (checkin, checkout) => {
   }
 };
 
-const createPhotosList = (container, photos ) => {
-  container.innerHTML = '';
-
+const createPhotosList = (container, photos) => {
   if (photos.length) {
+    container.innerHTML = '';
+
     photos.forEach((photo) => {
       const photosItem = popupPhoto.cloneNode(true);
       photosItem.src = photo;
@@ -53,7 +53,7 @@ const createPhotosList = (container, photos ) => {
 const getFeaturesList = (container, features) => {
   container.innerHTML = '';
 
-  features.forEach( ( feature ) => {
+  features.forEach((feature) => {
     const elementList = document.createElement('li');
     elementList.classList.add('popup__feature');
     elementList.classList.add(`popup__feature--${feature}`);

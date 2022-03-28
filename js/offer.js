@@ -1,5 +1,6 @@
 import { getAllRandomOffer } from './data.js';
-const CARDS_DATA = getAllRandomOffer();
+
+const cardsData = getAllRandomOffer();
 const templateFragment = document.querySelector('#card').content;
 const template = templateFragment.querySelector('.popup');
 const fragment = document.createDocumentFragment();
@@ -17,9 +18,9 @@ const areaTypes = {
 const toggleContent = (item, itemNode, tag = 'textContent') => {
   if (item) {
     itemNode[tag] = item;
-  } else {
-    itemNode.remove();
+    return itemNode;
   }
+  return itemNode.remove();
 };
 
 const getPrice = (price) => price ? `${price} ₽/ночь.` : '';
@@ -28,12 +29,14 @@ const getCapacityOffer = (rooms, guests) => {
   if (rooms && guests) {
     return `${ rooms } комнаты для ${ guests } гостей.`;
   }
+  return '';
 };
 
 const getTimeBooking = (checkin, checkout) => {
   if (checkin && checkout) {
     return `Заезд после ${ checkin }, выезд до ${ checkout }.`;
   }
+  return '';
 };
 
 const createPhotosList = (container, photos) => {
@@ -51,14 +54,18 @@ const createPhotosList = (container, photos) => {
 };
 
 const getFeaturesList = (container, features) => {
-  container.innerHTML = '';
+  if(features.length){
+    container.innerHTML = '';
 
-  features.forEach((feature) => {
-    const elementList = document.createElement('li');
-    elementList.classList.add('popup__feature');
-    elementList.classList.add(`popup__feature--${feature}`);
-    container.append(elementList);
-  });
+    features.forEach((feature) => {
+      const featureListItem = document.createElement('li');
+      featureListItem.classList.add('popup__feature');
+      featureListItem.classList.add(`popup__feature--${feature}`);
+      container.appendChild(featureListItem);
+    });
+  } else {
+    container.remove();
+  }
 };
 
 const createCard = ({ author, offer }) => {
@@ -68,13 +75,6 @@ const createCard = ({ author, offer }) => {
   const featuresList = element.querySelector('.popup__features');
   const popupPhotos = element.querySelector('.popup__photos');
 
-  const getArrayFromData = (arr, list, dispatch) => {
-    if (arr.length) {
-      dispatch(list, arr);
-    } else {
-      list.remove();
-    }
-  };
   toggleContent(avatar, element.querySelector('.popup__avatar'), 'src');
   toggleContent(title, element.querySelector('.popup__title'));
   toggleContent(address, element.querySelector('.popup__text--address'));
@@ -83,9 +83,8 @@ const createCard = ({ author, offer }) => {
   toggleContent(getCapacityOffer(rooms, guests), element.querySelector('.popup__text--capacity'));
   toggleContent(getTimeBooking(checkin, checkout), element.querySelector('.popup__text--time'));
   toggleContent(description, element.querySelector('.popup__description'));
-  toggleContent(photos, popupPhotos);
-  getArrayFromData(features, featuresList, getFeaturesList);
-  getArrayFromData(photos, popupPhotos, createPhotosList);
+  createPhotosList(popupPhotos, photos);
+  getFeaturesList(featuresList, features);
 
   fragment.append(element);
 };
@@ -94,6 +93,6 @@ const getOffers = (cards) => {
   cards.forEach(createCard);
 };
 
-getOffers(CARDS_DATA);
+getOffers(cardsData);
 
 mapCanvas.appendChild(fragment.children[0]);

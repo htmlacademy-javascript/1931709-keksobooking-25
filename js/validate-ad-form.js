@@ -42,7 +42,7 @@ function validateMinLength(value) {
 }
 
 function getRoomsForGuests(rooms) {
-  const guests =  Number(capacitySelect.value);
+  const guests = Number(capacitySelect.value);
   rooms = Number(rooms);
 
   if (rooms === HUNDRED_ROOMS) {
@@ -73,8 +73,6 @@ pristine.addValidator(priceField, validatePrice, getErrorMessagePrice);
 pristine.addValidator(titleField, validateMinLength, getTitleLengthMessage);
 
 typeSelect.addEventListener('change', changePriceMinValue);
-
-titleField.addEventListener('input', () => pristine.validate());
 
 allSelectFields.forEach((select) => select.addEventListener('change', () => pristine.validate()));
 

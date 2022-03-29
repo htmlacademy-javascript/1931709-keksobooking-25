@@ -1,4 +1,4 @@
-import { TITLE_MAX_LENGTH, TITLE_MIN_LENGTH, housePriceTypes } from './data.js';
+import { TITLE_MAX_LENGTH, TITLE_MIN_LENGTH, housePriceTypes, HUNDRED_ROOMS, NOT_GUESTS } from './data.js';
 
 const adForm = document.querySelector('.ad-form');
 const titleField = adForm.querySelector('#title');
@@ -29,29 +29,29 @@ function changePriceMinValue(evt) {
 }
 
 function validatePrice(value) {
-  const minValue = +priceField.placeholder;
+  const minValue = Number(priceField.placeholder);
   return value >= minValue;
 }
 
 function getErrorMessagePrice() {
-  return `Не меньше ${+minPriceValue} руб.`;
+  return `Не меньше ${minPriceValue} руб.`;
 }
 
 function validateMinLength(value) {
   return value.length > TITLE_MIN_LENGTH;
 }
 
-// Костыль) не придумал что то получше
 function getRoomsForGuests(rooms) {
-  const guests = capacitySelect.value;
+  const guests =  Number(capacitySelect.value);
+  rooms = Number(rooms);
 
-  if (+rooms === 100) {
+  if (rooms === HUNDRED_ROOMS) {
     errorCapacityMessage = 'Не для гостей';
-    return +guests === 0;
+    return guests === NOT_GUESTS;
   } else if (rooms < guests) {
     errorCapacityMessage = `Для ${guests} гостей нужно больше комнат`;
     return false;
-  } else if (+rooms < 100 && +guests === 0) {
+  } else if (rooms < 100 && guests === NOT_GUESTS) {
     errorCapacityMessage = 'Для гостей';
     return false;
   }
@@ -62,11 +62,15 @@ function getCapacityErrorMessage() {
   return errorCapacityMessage;
 }
 
-pristine.addValidator(roomsSelect, getRoomsForGuests, getCapacityErrorMessage, true);
+function getTitleLengthMessage() {
+  return `От ${TITLE_MIN_LENGTH} до ${TITLE_MAX_LENGTH} символов`;
+}
+
+pristine.addValidator(roomsSelect, getRoomsForGuests, getCapacityErrorMessage);
 
 pristine.addValidator(priceField, validatePrice, getErrorMessagePrice);
 
-pristine.addValidator(titleField, validateMinLength, `От ${TITLE_MIN_LENGTH} до ${TITLE_MAX_LENGTH} символов`);
+pristine.addValidator(titleField, validateMinLength, getTitleLengthMessage);
 
 typeSelect.addEventListener('change', changePriceMinValue);
 
@@ -78,9 +82,5 @@ adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
 
-  if (isValid) {
-    // console.log('валидна');
-  } else {
-    // console.log('невалидна');
-  }
+  return isValid;
 });

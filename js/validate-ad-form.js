@@ -50,10 +50,14 @@ function getRoomsForGuests(rooms) {
   if (rooms === HUNDRED_ROOMS) {
     errorCapacityMessage = 'Не для гостей';
     return guests === NOT_GUESTS;
-  } else if (rooms < guests) {
+  }
+
+  if (rooms < guests) {
     errorCapacityMessage = `Для ${guests} гостей нужно больше комнат`;
     return false;
-  } else if (rooms < 100 && guests === NOT_GUESTS) {
+  }
+
+  if (rooms < 100 && guests === NOT_GUESTS) {
     errorCapacityMessage = 'Для гостей';
     return false;
   }

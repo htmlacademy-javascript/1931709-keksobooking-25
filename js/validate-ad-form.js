@@ -17,7 +17,7 @@ const pristine = new Pristine(adForm, {
   errorClass: 'ad-form--invalid',
   successClass: 'ad-form--valid',
   errorTextParent: 'ad-form__element',
-  errorTextTag: 'div',
+  errorTextTag: 'span',
   errorTextClass: 'text-help',
 }, true);
 
@@ -31,7 +31,6 @@ function changePriceMinValue(evt) {
 
 function validatePrice(value) {
   const minValue = Number(priceField.placeholder);
-
   return value >= minValue;
 }
 

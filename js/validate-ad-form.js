@@ -6,8 +6,8 @@ const priceField =  adForm.querySelector('#price');
 const typeSelect = adForm.querySelector('#type');
 const roomsSelect = adForm.querySelector('#room_number');
 const capacitySelect = adForm.querySelector('#capacity');
-const timeField = adForm.querySelector('.ad-form__element--time');
-const timeSelectGroup = timeField.querySelectorAll('select');
+const timeFields = adForm.querySelector('.ad-form__element--time');
+const timeSelectGroup = timeFields.querySelectorAll('select');
 
 let minPriceValue = housePriceTypes.house;
 let errorCapacityMessage = '';
@@ -50,14 +50,10 @@ function getRoomsForGuests(rooms) {
   if (rooms === HUNDRED_ROOMS) {
     errorCapacityMessage = 'Не для гостей';
     return guests === NOT_GUESTS;
-  }
-
-  if (rooms < guests) {
+  } else if (rooms < guests) {
     errorCapacityMessage = `Для ${guests} гостей нужно больше комнат`;
     return false;
-  }
-
-  if (rooms < 100 && guests === NOT_GUESTS) {
+  } else if (rooms < 100 && guests === NOT_GUESTS) {
     errorCapacityMessage = 'Для гостей';
     return false;
   }
@@ -72,7 +68,7 @@ function getTitleLengthMessage() {
   return `От ${TITLE_MIN_LENGTH} до ${TITLE_MAX_LENGTH} символов`;
 }
 
-timeField.addEventListener('change', (evt) => {
+timeFields.addEventListener('change', (evt) => {
   timeSelectGroup.forEach((select) => {
     if (select !== evt.target) {
       select.value = evt.target.value;

@@ -4,9 +4,10 @@ const adForm = document.querySelector('.ad-form');
 const titleField = adForm.querySelector('#title');
 const priceField =  adForm.querySelector('#price');
 const typeSelect = adForm.querySelector('#type');
-const allSelectFields = adForm.querySelectorAll('select');
 const roomsSelect = adForm.querySelector('#room_number');
 const capacitySelect = adForm.querySelector('#capacity');
+const timeFields = adForm.querySelector('.ad-form__element--time');
+const timeSelectGroup = timeFields.querySelectorAll('select');
 
 let minPriceValue = housePriceTypes.house;
 let errorCapacityMessage = '';
@@ -66,6 +67,15 @@ function getTitleLengthMessage() {
   return `От ${TITLE_MIN_LENGTH} до ${TITLE_MAX_LENGTH} символов`;
 }
 
+timeFields.addEventListener('change', (evt) => {
+  timeSelectGroup.forEach((select) => {
+    if (select !== evt.target) {
+      select.value = evt.target.value;
+    }
+  });
+});
+
+
 pristine.addValidator(roomsSelect, getRoomsForGuests, getCapacityErrorMessage);
 
 pristine.addValidator(priceField, validatePrice, getErrorMessagePrice);
@@ -73,8 +83,6 @@ pristine.addValidator(priceField, validatePrice, getErrorMessagePrice);
 pristine.addValidator(titleField, validateMinLength, getTitleLengthMessage);
 
 typeSelect.addEventListener('change', changePriceMinValue);
-
-allSelectFields.forEach((select) => select.addEventListener('change', () => pristine.validate()));
 
 adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();

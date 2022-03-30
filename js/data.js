@@ -10,6 +10,19 @@ const PHOTOS = [
 const ROOMS = 3;
 const GUESTS = 4;
 const OFFER_LENGTH = 10;
+const TITLE_MIN_LENGTH = 30;
+const TITLE_MAX_LENGTH = 100;
+const MAX_PRICE = 100000;
+const HUNDRED_ROOMS = 100;
+const NOT_GUESTS = 0;
+
+const housePriceTypes = {
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000
+};
 
 const getOfferList = () => {
   const avatarNumber = getRandomInteger(1, 10);
@@ -43,3 +56,5 @@ const getOfferList = () => {
 };
 
 export const getAllRandomOffer = () => Array.from({length: OFFER_LENGTH}, getOfferList);
+
+export {TITLE_MIN_LENGTH, TITLE_MAX_LENGTH, MAX_PRICE, housePriceTypes, HUNDRED_ROOMS, NOT_GUESTS};

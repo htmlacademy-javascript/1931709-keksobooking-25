@@ -6,8 +6,8 @@ const priceField =  adForm.querySelector('#price');
 const typeSelect = adForm.querySelector('#type');
 const roomsSelect = adForm.querySelector('#room_number');
 const capacitySelect = adForm.querySelector('#capacity');
-const timeFields = adForm.querySelector('.ad-form__element--time');
-const timeSelectGroup = timeFields.querySelectorAll('select');
+const timeField = adForm.querySelector('.ad-form__element--time');
+const timeSelectGroup = timeField.querySelectorAll('select');
 
 let minPriceValue = housePriceTypes.house;
 let errorCapacityMessage = '';

@@ -3,8 +3,6 @@ import { getAllRandomOffer } from './data.js';
 const cardsData = getAllRandomOffer();
 const templateFragment = document.querySelector('#card').content;
 const template = templateFragment.querySelector('.popup');
-const fragment = document.createDocumentFragment();
-const mapCanvas = document.querySelector('#map-canvas');
 const popupPhoto = templateFragment.querySelector('.popup__photo');
 
 const areaTypes = {
@@ -20,6 +18,7 @@ const toggleContent = (item, itemNode, tag = 'textContent') => {
     itemNode[tag] = item;
     return itemNode;
   }
+
   return itemNode.remove();
 };
 
@@ -29,6 +28,7 @@ const getCapacityOffer = (rooms, guests) => {
   if (rooms && guests) {
     return `${ rooms } комнаты для ${ guests } гостей.`;
   }
+
   return '';
 };
 
@@ -36,6 +36,7 @@ const getTimeBooking = (checkin, checkout) => {
   if (checkin && checkout) {
     return `Заезд после ${ checkin }, выезд до ${ checkout }.`;
   }
+
   return '';
 };
 
@@ -86,13 +87,7 @@ const createCard = ({ author, offer }) => {
   createPhotosList(popupPhotos, photos);
   getFeaturesList(featuresList, features);
 
-  fragment.append(element);
+  return element;
 };
 
-const getOffers = (cards) => {
-  cards.forEach(createCard);
-};
-
-getOffers(cardsData);
-
-mapCanvas.appendChild(fragment.children[0]);
+export { cardsData, createCard };

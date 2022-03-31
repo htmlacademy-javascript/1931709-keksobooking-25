@@ -1053,3 +1053,8 @@ fieldset {
 .hidden {
   display: none;
 }
+
+.text-help{
+  color: rgb(243, 93, 66);
+  font-weight: 500;
+}

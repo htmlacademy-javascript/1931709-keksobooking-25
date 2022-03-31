@@ -1,5 +1,6 @@
 const adForm = document.querySelector('.ad-form');
 const mapFiltersForm = document.querySelector('.map__filters');
+const formGroup = document.querySelectorAll('form');
 
 const onDisabledForm = (form) => {
   const formName = form.classList[0];
@@ -19,7 +20,8 @@ const removeDisabledForm = (form) => {
 onDisabledForm(adForm);
 onDisabledForm(mapFiltersForm);
 
-window.addEventListener('click', () => {
-  removeDisabledForm(mapFiltersForm);
-  removeDisabledForm(adForm);
-},{once: true});
+const removeDisableFormGroup = () => {
+  formGroup.forEach((form) => removeDisabledForm(form));
+};
+
+export { removeDisableFormGroup };

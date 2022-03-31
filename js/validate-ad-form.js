@@ -6,8 +6,8 @@ const priceField =  adForm.querySelector('#price');
 const typeSelect = adForm.querySelector('#type');
 const roomsSelect = adForm.querySelector('#room_number');
 const capacitySelect = adForm.querySelector('#capacity');
-const timeFields = adForm.querySelector('.ad-form__element--time');
-const timeSelectGroup = timeFields.querySelectorAll('select');
+const timeField = adForm.querySelector('.ad-form__element--time');
+const timeSelectGroup = timeField.querySelectorAll('select');
 
 let minPriceValue = housePriceTypes.house;
 let errorCapacityMessage = '';
@@ -17,7 +17,7 @@ const pristine = new Pristine(adForm, {
   errorClass: 'ad-form--invalid',
   successClass: 'ad-form--valid',
   errorTextParent: 'ad-form__element',
-  errorTextTag: 'span',
+  errorTextTag: 'div',
   errorTextClass: 'text-help',
 }, true);
 
@@ -31,6 +31,7 @@ function changePriceMinValue(evt) {
 
 function validatePrice(value) {
   const minValue = Number(priceField.placeholder);
+
   return value >= minValue;
 }
 
@@ -49,10 +50,14 @@ function getRoomsForGuests(rooms) {
   if (rooms === HUNDRED_ROOMS) {
     errorCapacityMessage = 'Не для гостей';
     return guests === NOT_GUESTS;
-  } else if (rooms < guests) {
+  }
+
+  if (rooms < guests) {
     errorCapacityMessage = `Для ${guests} гостей нужно больше комнат`;
     return false;
-  } else if (rooms < 100 && guests === NOT_GUESTS) {
+  }
+
+  if (rooms < 100 && guests === NOT_GUESTS) {
     errorCapacityMessage = 'Для гостей';
     return false;
   }
@@ -67,7 +72,7 @@ function getTitleLengthMessage() {
   return `От ${TITLE_MIN_LENGTH} до ${TITLE_MAX_LENGTH} символов`;
 }
 
-timeFields.addEventListener('change', (evt) => {
+timeField.addEventListener('change', (evt) => {
   timeSelectGroup.forEach((select) => {
     if (select !== evt.target) {
       select.value = evt.target.value;
@@ -90,3 +95,5 @@ adForm.addEventListener('submit', (evt) => {
 
   return isValid;
 });
+
+export { priceField };

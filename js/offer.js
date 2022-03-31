@@ -3,8 +3,6 @@ import { getAllRandomOffer } from './data.js';
 const cardsData = getAllRandomOffer();
 const templateFragment = document.querySelector('#card').content;
 const template = templateFragment.querySelector('.popup');
-const fragment = document.createDocumentFragment();
-const mapCanvas = document.querySelector('#map-canvas');
 const popupPhoto = templateFragment.querySelector('.popup__photo');
 
 const areaTypes = {
@@ -86,13 +84,9 @@ const createCard = ({ author, offer }) => {
   createPhotosList(popupPhotos, photos);
   getFeaturesList(featuresList, features);
 
-  fragment.append(element);
+  return element;
 };
 
-const getOffers = (cards) => {
-  cards.forEach(createCard);
-};
 
-getOffers(cardsData);
+export { cardsData, createCard };
 
-mapCanvas.appendChild(fragment.children[0]);

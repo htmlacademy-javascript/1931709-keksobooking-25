@@ -6,6 +6,7 @@ const address = document.querySelector('#address');
 const map = L.map('map-canvas')
   .on('load', () => {
     address.value = '35.681729, 139.753927';
+
     removeDisableFormGroup();
   })
   .setView({

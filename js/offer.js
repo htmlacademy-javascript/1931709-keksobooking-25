@@ -55,7 +55,7 @@ const createPhotosList = (container, photos) => {
 };
 
 const getFeaturesList = (container, features) => {
-  if(features.length){
+  if (features.length) {
     container.innerHTML = '';
 
     features.forEach((feature) => {

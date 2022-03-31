@@ -61,6 +61,7 @@ function getRoomsForGuests(rooms) {
     errorCapacityMessage = 'Для гостей';
     return false;
   }
+
   return true;
 }
 
@@ -95,3 +96,5 @@ adForm.addEventListener('submit', (evt) => {
 
   return isValid;
 });
+
+export { priceField };

@@ -95,3 +95,5 @@ adForm.addEventListener('submit', (evt) => {
 
   return isValid;
 });
+
+export { priceField };

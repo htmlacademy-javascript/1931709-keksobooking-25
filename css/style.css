@@ -1055,5 +1055,6 @@ fieldset {
 }
 
 .text-help{
-  color: tomato;
+  color: rgb(243, 93, 66);
+  font-weight: 500;
 }

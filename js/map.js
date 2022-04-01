@@ -1,61 +1,41 @@
-import { removeDisableFormGroup } from './disabled-form.js';
-import { cardsData, createCard } from './offer.js';
+import { removeDisabledFormGroup } from './form/disabled-form.js';
+import { createCard } from './offer.js';
+import { mainIcon, similarIcon, getInitialCoords, OPEN_SOURCE_MAP, MAP_ATTRIBUTE } from './data.js';
+import { getMapIcon } from './util.js';
 
 const address = document.querySelector('#address');
 
-const map = L.map('map-canvas')
+export const map = L.map('map-canvas')
   .on('load', () => {
-    address.value = '35.681729, 139.753927';
+    const { lat, lng } = getInitialCoords();
 
-    removeDisableFormGroup();
+    address.value = `${lat}, ${lng}`;
+    removeDisabledFormGroup();
   })
-  .setView({
-    lat: 35.681729,
-    lng: 139.753927
-  }, 9);
+  .setView(getInitialCoords(), 13);
 
-
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
-
-const mainPinIcon = L.icon({
-  iconUrl: './img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
-});
-
-const mainSimilarIcon = L.icon({
-  iconUrl: './img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-});
+L.tileLayer(OPEN_SOURCE_MAP, { attribution: MAP_ATTRIBUTE }).addTo(map);
 
 const marker = L.marker(
-  {
-    lat: 35.681729,
-    lng: 139.753927
-  },
+  getInitialCoords(),
   {
     draggable: true,
-    icon: mainPinIcon
+    icon: getMapIcon(mainIcon)
   }
 );
-
-cardsData.forEach((card) => {
-  const { lat, lng } = card.location;
-  const markerSimilar = L.marker({
-    lat,
-    lng,
-  },
-  {
-    icon: mainSimilarIcon
+const renderCardsOnMap = (cards) => {
+  cards.forEach((card) => {
+    const { lat, lng } = card.location;
+    const markerSimilar = L.marker({
+      lat,
+      lng,
+    },
+    {
+      icon: getMapIcon(similarIcon)
+    });
+    markerSimilar.addTo(map).bindPopup(createCard(card));
   });
-  markerSimilar.addTo(map).bindPopup(createCard(card));
-});
+};
 
 
 marker.on('moveend', (evt) => {
@@ -64,3 +44,11 @@ marker.on('moveend', (evt) => {
 });
 
 marker.addTo(map);
+
+const returnInitialMap = () => {
+  marker.setLatLng(getInitialCoords());
+  map.setView(getInitialCoords(), 13);
+  map.closePopup();
+};
+
+export { renderCardsOnMap, returnInitialMap };

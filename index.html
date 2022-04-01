@@ -105,7 +105,7 @@
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="address">Адрес (координаты)</label>
-          <input id="address" name="address" type="text" readonly>
+          <input id="address" name="address" type="text" value="35.681729, 139.753927" readonly>
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="type">Тип жилья</label>
@@ -119,7 +119,7 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000"
+          <input id="price" name="price" type="number" placeholder="5000" value="5000"
           required
           max="100000"
           data-pristine-required-message="Обязательное поле" 
@@ -258,6 +258,13 @@
     <div class="error">
       <p class="error__message">Ошибка размещения объявления</p>
       <button type="button" class="error__button">Попробовать снова</button>
+    </div>
+  </template>
+  
+  <!-- Сообщение об ошибке при загрузке данных с сервера -->
+  <template id="reject">
+    <div class="reject">
+      <p class="reject__message">Ошибка при получении данных с сервера</p>
     </div>
   </template>
   <script src="./leaflet/leaflet.js"></script>

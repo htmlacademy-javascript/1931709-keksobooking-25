@@ -1,4 +1,4 @@
-import { priceField } from './validate-ad-form.js';
+import { priceField } from './form/validate-ad-form.js';
 
 const sliderElement = document.querySelector('.ad-form__slider');
 noUiSlider.create(sliderElement, {
@@ -33,3 +33,5 @@ priceField.addEventListener('input', (evt) => {
 
   sliderElement.noUiSlider.set(value);
 });
+
+export { sliderElement };

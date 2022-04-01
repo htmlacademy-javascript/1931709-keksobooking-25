@@ -1,4 +1,5 @@
-import { TITLE_MAX_LENGTH, TITLE_MIN_LENGTH, housePriceTypes, HUNDRED_ROOMS, NOT_GUESTS } from './data.js';
+import { sendData } from '../api.js';
+import { TITLE_MAX_LENGTH, TITLE_MIN_LENGTH, housePriceTypes, HUNDRED_ROOMS, NOT_GUESTS } from '../data.js';
 
 const adForm = document.querySelector('.ad-form');
 const titleField = adForm.querySelector('#title');
@@ -8,6 +9,7 @@ const roomsSelect = adForm.querySelector('#room_number');
 const capacitySelect = adForm.querySelector('#capacity');
 const timeField = adForm.querySelector('.ad-form__element--time');
 const timeSelectGroup = timeField.querySelectorAll('select');
+const submitBtn = document.querySelector('.ad-form__submit');
 
 let minPriceValue = housePriceTypes.house;
 let errorCapacityMessage = '';
@@ -82,18 +84,30 @@ timeField.addEventListener('change', (evt) => {
 
 
 pristine.addValidator(roomsSelect, getRoomsForGuests, getCapacityErrorMessage);
-
 pristine.addValidator(priceField, validatePrice, getErrorMessagePrice);
-
 pristine.addValidator(titleField, validateMinLength, getTitleLengthMessage);
 
 typeSelect.addEventListener('change', changePriceMinValue);
 
-adForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  const isValid = pristine.validate();
+const disabledBtn = () => {
+  submitBtn.disabled = true;
+};
 
-  return isValid;
-});
+const switchOnBtn = () => {
+  submitBtn.disabled = false;
+};
 
-export { priceField };
+const setSubmitForm = (onSucces, onError) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      const formData = new FormData(evt.target);
+      disabledBtn();
+      sendData(onSucces, onError, formData);
+    }
+  });
+};
+
+export { priceField, pristine, switchOnBtn, setSubmitForm };

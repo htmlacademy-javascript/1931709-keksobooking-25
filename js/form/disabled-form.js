@@ -20,8 +20,12 @@ const removeDisabledForm = (form) => {
 
 formGroup.forEach((form) => onDisabledForm(form));
 
-const removeDisableFormGroup = () => {
+const removeDisabledFormGroup = () => {
   formGroup.forEach((form) => removeDisabledForm(form));
 };
 
-export { removeDisableFormGroup };
+const resetFormGroup = () => {
+  formGroup.forEach((form) => form.reset());
+};
+
+export { removeDisabledFormGroup , resetFormGroup };

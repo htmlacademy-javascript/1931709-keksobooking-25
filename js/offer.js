@@ -1,6 +1,3 @@
-import { getAllRandomOffer } from './data.js';
-
-const cardsData = getAllRandomOffer();
 const templateFragment = document.querySelector('#card').content;
 const template = templateFragment.querySelector('.popup');
 const popupPhoto = templateFragment.querySelector('.popup__photo');
@@ -41,7 +38,7 @@ const getTimeBooking = (checkin, checkout) => {
 };
 
 const createPhotosList = (container, photos) => {
-  if (photos.length) {
+  if (photos) {
     container.innerHTML = '';
 
     photos.forEach((photo) => {
@@ -55,7 +52,7 @@ const createPhotosList = (container, photos) => {
 };
 
 const getFeaturesList = (container, features) => {
-  if (features.length) {
+  if (features) {
     container.innerHTML = '';
 
     features.forEach((feature) => {
@@ -90,4 +87,4 @@ const createCard = ({ author, offer }) => {
   return element;
 };
 
-export { cardsData, createCard };
+export { createCard };

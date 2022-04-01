@@ -1,47 +1,26 @@
 import { removeDisableFormGroup } from './disabled-form.js';
 import { cardsData, createCard } from './offer.js';
+import { mainIcon, similarIcon, getInitialCoords, OPEN_SOURCE_MAP, MAP_ATTRIBUTE } from './data.js';
+import { getMapIcon } from './util.js';
 
 const address = document.querySelector('#address');
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    address.value = '35.681729, 139.753927';
+    const { lat, lng } = getInitialCoords();
 
+    address.value = `${lat}, ${lng}`;
     removeDisableFormGroup();
   })
-  .setView({
-    lat: 35.681729,
-    lng: 139.753927
-  }, 9);
+  .setView(getInitialCoords(), 10);
 
-
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
-
-const mainPinIcon = L.icon({
-  iconUrl: './img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
-});
-
-const mainSimilarIcon = L.icon({
-  iconUrl: './img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-});
+L.tileLayer(OPEN_SOURCE_MAP, { attribution: MAP_ATTRIBUTE }).addTo(map);
 
 const marker = L.marker(
-  {
-    lat: 35.681729,
-    lng: 139.753927
-  },
+  getInitialCoords(),
   {
     draggable: true,
-    icon: mainPinIcon
+    icon: getMapIcon(mainIcon)
   }
 );
 
@@ -52,11 +31,10 @@ cardsData.forEach((card) => {
     lng,
   },
   {
-    icon: mainSimilarIcon
+    icon: getMapIcon(similarIcon)
   });
   markerSimilar.addTo(map).bindPopup(createCard(card));
 });
-
 
 marker.on('moveend', (evt) => {
   const { lat, lng } = evt.target.getLatLng();

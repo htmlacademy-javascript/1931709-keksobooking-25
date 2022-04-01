@@ -15,6 +15,8 @@ const TITLE_MAX_LENGTH = 100;
 const MAX_PRICE = 100000;
 const HUNDRED_ROOMS = 100;
 const NOT_GUESTS = 0;
+const OPEN_SOURCE_MAP = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const MAP_ATTRIBUTE = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 const housePriceTypes = {
   bungalow: 0,
@@ -22,6 +24,23 @@ const housePriceTypes = {
   hotel: 3000,
   house: 5000,
   palace: 10000
+};
+
+const mainIcon = {
+  iconUrl: './img/main-pin.svg',
+  width: 52,
+  height: 52
+};
+
+const similarIcon = {
+  iconUrl: './img/pin.svg',
+  width: 40,
+  height: 40
+};
+
+const initialCoords = {
+  lat: 35.681729,
+  lng: 139.753927
 };
 
 const getOfferList = () => {
@@ -55,6 +74,11 @@ const getOfferList = () => {
   };
 };
 
-export const getAllRandomOffer = () => Array.from({length: OFFER_LENGTH}, getOfferList);
+const getAllRandomOffer = () => Array.from({length: OFFER_LENGTH}, getOfferList);
 
-export {TITLE_MIN_LENGTH, TITLE_MAX_LENGTH, MAX_PRICE, housePriceTypes, HUNDRED_ROOMS, NOT_GUESTS};
+const getInitialCoords = () => initialCoords;
+
+export {
+  TITLE_MIN_LENGTH, TITLE_MAX_LENGTH, MAX_PRICE, HUNDRED_ROOMS, NOT_GUESTS, OPEN_SOURCE_MAP,
+  MAP_ATTRIBUTE, housePriceTypes, mainIcon, similarIcon, getAllRandomOffer, getInitialCoords
+};

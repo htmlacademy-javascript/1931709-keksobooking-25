@@ -16,4 +16,10 @@ const getRandomArrayElements = (elements) => elements[getRandomInteger(0, elemen
 
 const getRandomLengthArray = (array) => Array.from({length: getRandomInteger(1, array.length)}, () => getRandomArrayElements(array));
 
-export { getRandomInteger, getRandomFloat, getRandomArrayElements, getRandomLengthArray };
+const getMapIcon = ({iconUrl, width, height}) => L.icon({
+  iconUrl,
+  iconSize: [width, height],
+  iconAnchor: [width / 2, height]
+});
+
+export { getRandomInteger, getRandomFloat, getRandomArrayElements, getRandomLengthArray, getMapIcon };

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import './data.js';
 import './util.js';
 import './offer.js';
@@ -9,7 +8,8 @@ import './map.js';
 import './slider.js';
 import './api.js';
 import './form/filter-form.js';
-import './avatar.js';
+//Следующий ПР
+// import './avatar.js';
 import { setSubmitForm } from './form/validate-ad-form.js';
 import { resetForm } from './form/reset-form.js';
 import { getCardsData } from './api.js';

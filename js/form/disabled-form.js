@@ -28,4 +28,4 @@ const resetFormGroup = () => {
   formGroup.forEach((form) => form.reset());
 };
 
-export { removeDisabledFormGroup , resetFormGroup };
+export { removeDisabledFormGroup , resetFormGroup, onDisabledForm };

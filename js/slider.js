@@ -1,10 +1,11 @@
+import { MAX_PRICE } from './data.js';
 import { priceField } from './form/validate-ad-form.js';
 
 const sliderElement = document.querySelector('.ad-form__slider');
 noUiSlider.create(sliderElement, {
   range: {
     min: 0,
-    max: 100000,
+    max: MAX_PRICE,
   },
   start: 5000,
   step: 1,
@@ -34,4 +35,6 @@ priceField.addEventListener('input', (evt) => {
   sliderElement.noUiSlider.set(value);
 });
 
-export { sliderElement };
+const getInitialSliderPosition = () => sliderElement.noUiSlider.set(priceField.value);
+
+export { getInitialSliderPosition };

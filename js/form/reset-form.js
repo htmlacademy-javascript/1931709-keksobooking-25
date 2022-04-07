@@ -1,8 +1,8 @@
 import { resetFormGroup } from './disabled-form.js';
 import { returnInitialMap } from '../map.js';
-import { sliderElement } from '../slider.js';
+import { getInitialSliderPosition } from '../slider.js';
+import { switchOnSubmitBtn, pristine } from './validate-ad-form.js';
 import { isEscapeKey } from '../util.js';
-import { switchOnBtn, priceField, pristine } from './validate-ad-form.js';
 
 const resetBtn = document.querySelector('.ad-form__reset');
 
@@ -32,8 +32,8 @@ function resetForm() {
   showSuccessMessage();
   returnInitialMap();
   pristine.reset();
-  sliderElement.noUiSlider.set(priceField.value);
-  switchOnBtn();
+  getInitialSliderPosition();
+  switchOnSubmitBtn();
 }
 
 resetBtn.addEventListener('click', resetForm);

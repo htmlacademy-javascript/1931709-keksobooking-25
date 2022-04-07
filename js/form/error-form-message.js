@@ -1,10 +1,12 @@
+import { MAP_ERROR_TIME_OUT } from '../data.js';
 import { isEscapeKey } from '../util.js';
-import { switchOnBtn } from './validate-ad-form.js';
+import { onDisabledForm } from './disabled-form.js';
+import { switchOnSubmitBtn } from './validate-ad-form.js';
 
-const error = document.querySelector('#error').content;
+const errorMessageTemplate = document.querySelector('#error').content;
 
 function showError() {
-  const content = error.querySelector('.error').cloneNode(true);
+  const content = errorMessageTemplate.querySelector('.error').cloneNode(true);
   document.body.appendChild(content);
 
   document.body.querySelector('.error').addEventListener('click', hideErrorMessage);
@@ -14,7 +16,7 @@ function showError() {
 function hideErrorMessage() {
   document.body.querySelector('.error').remove();
   document.removeEventListener('keydown', onHideErrorMessage);
-  switchOnBtn();
+  switchOnSubmitBtn();
 }
 
 function onHideErrorMessage(evt){
@@ -24,14 +26,15 @@ function onHideErrorMessage(evt){
 }
 
 const errorMapMessage = () => {
+  const formFilter = document.querySelector('.map__filters');
   const main = document.querySelector('main');
   const reject = document.querySelector('#reject').content;
   const content = reject.querySelector('.reject').cloneNode(true);
   main.append(content);
-
+  onDisabledForm(formFilter);
   setTimeout(() => {
     main.querySelector('.reject').remove();
-  }, 5000);
+  }, MAP_ERROR_TIME_OUT);
 };
 
 export { showError, errorMapMessage};

@@ -89,25 +89,25 @@ pristine.addValidator(titleField, validateMinLength, getTitleLengthMessage);
 
 typeSelect.addEventListener('change', changePriceMinValue);
 
-const disabledBtn = () => {
+const disabledSubmitBtn = () => {
   submitBtn.disabled = true;
 };
 
-const switchOnBtn = () => {
+const switchOnSubmitBtn = () => {
   submitBtn.disabled = false;
 };
 
-const setSubmitForm = (onSucces, onError) => {
+const setSubmitForm = (onSucces, onFail) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
 
     if (isValid) {
       const formData = new FormData(evt.target);
-      disabledBtn();
-      sendData(onSucces, onError, formData);
+      disabledSubmitBtn();
+      sendData(onSucces, onFail, formData);
     }
   });
 };
 
-export { priceField, pristine, switchOnBtn, setSubmitForm };
+export { priceField, pristine, switchOnSubmitBtn, setSubmitForm };

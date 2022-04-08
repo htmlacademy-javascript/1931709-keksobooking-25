@@ -8,8 +8,7 @@ import './map.js';
 import './slider.js';
 import './api.js';
 import './form/filter-form.js';
-//Следующий ПР
-// import './avatar.js';
+import './preview-image.js';
 import { setSubmitForm } from './form/validate-ad-form.js';
 import { resetForm } from './form/reset-form.js';
 import { getCardsData } from './api.js';

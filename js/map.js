@@ -1,10 +1,8 @@
-/* eslint-disable no-case-declarations */
-/* eslint-disable no-unused-expressions */
 import { removeDisabledFormGroup } from './form/disabled-form.js';
 import { createCard } from './offer.js';
-import { mainIcon, similarIcon, getInitialCoords, OPEN_SOURCE_MAP, MAP_ATTRIBUTE, ZOOM_MAP, OFFER_LENGTH } from './data.js';
+import { mainIcon, similarIcon, getInitialCoords, OPEN_SOURCE_MAP, MAP_ATTRIBUTE, ZOOM_MAP, OFFER_LENGTH, Default } from './data.js';
 import { getMapIcon } from './util.js';
-import { compareCards, getFilterType, getFilterPrice, getFilterRooms, getFilterGuests } from './form/filter-form.js';
+import { compareCards, getFormData, isFilteredCard } from './form/filter-form.js';
 
 const address = document.querySelector('#address');
 
@@ -33,26 +31,25 @@ const createMarker = (card) => {
 const renderCardsOnMap = (cards, target) => {
   map.closePopup();
   markerGroup.clearLayers();
+  const similarCards = cards.slice();
 
-  if (target) {
-    return cards
-      .slice()
+  if(target) {
+    const data = getFormData();
+
+    return similarCards
       .sort(compareCards)
-      .filter(getFilterType)
-      .filter(getFilterPrice)
-      .filter(getFilterRooms)
-      .filter(getFilterGuests)
-      .slice(0, OFFER_LENGTH).forEach(createMarker);
+      .filter(({offer}) => isFilteredCard(offer, data))
+      .slice(0, OFFER_LENGTH)
+      .forEach(createMarker);
   }
 
-  return cards.slice(0, OFFER_LENGTH).forEach(createMarker);
+  similarCards.slice(0,OFFER_LENGTH).forEach(createMarker);
 };
 
 marker.on('moveend', (evt) => {
   const { lat, lng } = evt.target.getLatLng();
   address.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 });
-
 
 marker.addTo(map);
 
@@ -61,5 +58,6 @@ const returnInitialMap = () => {
   map.setView(getInitialCoords(), ZOOM_MAP);
   map.closePopup();
 };
+
 
 export { renderCardsOnMap, returnInitialMap };

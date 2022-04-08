@@ -1,3 +1,5 @@
+import { FILE_TYPES } from './data.js';
+
 const getMapIcon = ({iconUrl, width, height}) => L.icon({
   iconUrl,
   iconSize: [width, height],
@@ -15,4 +17,16 @@ const debounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-export { getMapIcon, isEscapeKey, debounce};
+const addPreviewImage = (eventNode, previewNode) => {
+  const itemNode = eventNode.target;
+  const file = itemNode.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    previewNode.src = URL.createObjectURL(file);
+  }
+}
+
+export { getMapIcon, isEscapeKey, debounce, addPreviewImage };

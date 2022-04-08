@@ -12,6 +12,7 @@ const ZOOM_MAP = 13;
 const MAP_ERROR_TIME_OUT = 5000;
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 const DEBOUCE_TIME_OUT = 500;
+const FORM_PHOTOS_SIZE = 70;
 
 const housePriceTypes = {
   bungalow: 0,
@@ -56,5 +57,5 @@ const getInitialCoords = () => initialCoords;
 
 export {
   TITLE_MIN_LENGTH, TITLE_MAX_LENGTH, MAX_PRICE, HUNDRED_ROOMS, NOT_GUESTS, OPEN_SOURCE_MAP, API_DATA, FORM_URL, ZOOM_MAP, DEBOUCE_TIME_OUT,
-  MAP_ERROR_TIME_OUT, MAP_ATTRIBUTE, OFFER_LENGTH, housePriceTypes, mainIcon, similarIcon, FILE_TYPES, Default, priceList, getInitialCoords
+  MAP_ERROR_TIME_OUT, MAP_ATTRIBUTE, OFFER_LENGTH, housePriceTypes, mainIcon, similarIcon, FILE_TYPES, Default, priceList, FORM_PHOTOS_SIZE, getInitialCoords
 };

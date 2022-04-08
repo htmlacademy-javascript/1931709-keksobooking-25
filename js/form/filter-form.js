@@ -1,9 +1,5 @@
 import { Default, priceList } from '../data.js';
 
-const rooms = document.querySelector('#housing-rooms');
-const guests = document.querySelector('#housing-guests');
-const type = document.querySelector('#housing-type');
-const price = document.querySelector('#housing-price');
 const wifi = document.querySelector('#filter-wifi');
 const dishwasher = document.querySelector('#filter-dishwasher');
 const parking = document.querySelector('#filter-parking');
@@ -14,47 +10,6 @@ const mapFilters = document.querySelector('.map__filters');
 
 const setFilterHousingValues = (cb) => {
   mapFilters.addEventListener('change', (evt) => cb((evt.target)));
-};
-
-const getFilterType = (card) => {
-  const { offer } = card;
-
-  if (type.value !== Default.TYPE) {
-    return offer.type === type.value;
-  }
-
-  return true;
-};
-
-const getFilterPrice = (card) => {
-  const { offer } = card;
-  const low = priceList[price.value][0];
-  const high = priceList[price.value][1];
-
-  if (price.value !== Default.PRICE) {
-    return offer.price >= low && offer.price <= high;
-  }
-
-  return true;
-};
-
-const getFilterRooms = (card) => {
-  const { offer } = card;
-
-  if(rooms.value !== Default.ROOMS) {
-    return offer.rooms === +rooms.value;
-  }
-  return true;
-};
-
-const getFilterGuests = (card) => {
-  const { offer } = card;
-
-  if (guests.value !== Default.GUESTS) {
-    return offer.guests === +guests.value;
-  }
-
-  return true;
 };
 
 const getCardsFeaturesRank = (card) => {
@@ -97,4 +52,83 @@ const compareCards = (cardA, cardB) => {
   return rankB - rankA;
 };
 
-export { compareCards, getFilterType, getFilterPrice, getFilterRooms, getFilterGuests, setFilterHousingValues };
+
+const getFormData = () => {
+  const form = document.forms[0];
+  const initialData = new FormData(form);
+  const formData = {
+    features: []
+  };
+
+  for(const [key, value] of initialData.entries()) {
+    const replaceKey = key.replace('housing-', '');
+
+    if( replaceKey === 'features' ) {
+      formData[replaceKey].push(value);
+    } else {
+      formData[replaceKey] = value;
+    }
+
+  }
+  formData.price = priceList[formData.price];
+
+  return formData;
+};
+
+const isPrice = (offer, price) => {
+  const low = price[0];
+  const high = price[1];
+
+  if (offer !== Default.PRICE) {
+    return offer.price >= low && offer.price <= high;
+  }
+
+  return true;
+};
+
+const isType = (offer,type) => {
+  if (type !== Default.TYPE) {
+    return offer.type === type;
+  }
+  return true;
+};
+
+const isRooms = (offer, rooms) => {
+  if(rooms !== Default.ROOMS) {
+    return offer.rooms === +rooms;
+  }
+  return true;
+};
+
+const isGuests = (offer, guests) => {
+  if(guests !== Default.GUESTS) {
+    return offer.guests === +guests;
+  }
+  return true;
+};
+
+
+const isFilteredCard = (offer, data) => {
+  const { type, price, rooms, guests } = data;
+
+  if(!isType(offer, type)) {
+    return false;
+  }
+
+  if(!isPrice(offer, price)){
+    return false;
+  }
+
+  if(!isRooms(offer, rooms)) {
+    return false;
+  }
+
+  if(!isGuests(offer, guests)){
+    return false;
+  }
+
+  return true;
+};
+
+
+export { compareCards, setFilterHousingValues, getFormData, isFilteredCard };

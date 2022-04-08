@@ -56,20 +56,13 @@ const compareCards = (cardA, cardB) => {
 const getFormData = () => {
   const form = document.forms[0];
   const initialData = new FormData(form);
-  const formData = {
-    features: []
-  };
+  const formData = {};
 
   for(const [key, value] of initialData.entries()) {
-    const replaceKey = key.replace('housing-', '');
-
-    if( replaceKey === 'features' ) {
-      formData[replaceKey].push(value);
-    } else {
-      formData[replaceKey] = value;
-    }
-
+    const objKey = key.replace('housing-', '');
+    formData[objKey] = value;
   }
+
   formData.price = priceList[formData.price];
 
   return formData;
@@ -90,20 +83,23 @@ const isType = (offer,type) => {
   if (type !== Default.TYPE) {
     return offer.type === type;
   }
+
   return true;
 };
 
 const isRooms = (offer, rooms) => {
-  if(rooms !== Default.ROOMS) {
+  if (rooms !== Default.ROOMS) {
     return offer.rooms === +rooms;
   }
+
   return true;
 };
 
 const isGuests = (offer, guests) => {
-  if(guests !== Default.GUESTS) {
+  if (guests !== Default.GUESTS) {
     return offer.guests === +guests;
   }
+
   return true;
 };
 
@@ -111,19 +107,19 @@ const isGuests = (offer, guests) => {
 const isFilteredCard = (offer, data) => {
   const { type, price, rooms, guests } = data;
 
-  if(!isType(offer, type)) {
+  if (!isType(offer, type)) {
     return false;
   }
 
-  if(!isPrice(offer, price)){
+  if (!isPrice(offer, price)) {
     return false;
   }
 
-  if(!isRooms(offer, rooms)) {
+  if (!isRooms(offer, rooms)) {
     return false;
   }
 
-  if(!isGuests(offer, guests)){
+  if (!isGuests(offer, guests)) {
     return false;
   }
 

@@ -29,21 +29,20 @@ const createMarker = (card) => {
 };
 
 const renderCardsOnMap = (cards, target) => {
+  const similarCards = cards.slice();
+  const data = getFormData();
   map.closePopup();
   markerGroup.clearLayers();
-  const similarCards = cards.slice();
 
-  if(target) {
-    const data = getFormData();
-
-    return similarCards
-      .sort(compareCards)
-      .filter(({offer}) => isFilteredCard(offer, data))
-      .slice(0, OFFER_LENGTH)
-      .forEach(createMarker);
+  if (!target) {
+    return  similarCards.slice(0,OFFER_LENGTH).forEach(createMarker);
   }
 
-  similarCards.slice(0,OFFER_LENGTH).forEach(createMarker);
+  similarCards
+    .sort(compareCards)
+    .filter(({offer}) => isFilteredCard(offer, data))
+    .slice(0, OFFER_LENGTH)
+    .forEach(createMarker);
 };
 
 marker.on('moveend', (evt) => {

@@ -27,6 +27,6 @@ const addPreviewImage = (eventNode, previewNode) => {
   if (matches) {
     previewNode.src = URL.createObjectURL(file);
   }
-}
+};
 
 export { getMapIcon, isEscapeKey, debounce, addPreviewImage };

@@ -1,4 +1,8 @@
+import { HEADER_PREVIEW_IMG } from '../data.js';
+
 const formGroup = document.querySelectorAll('form');
+const adFormPhoto = document.querySelector('.ad-form__photo');
+const adFormHeaderPreview = document.querySelector('.ad-form-header__preview img');
 
 const onDisabledForm = (form) => {
   const formName = form.classList[0];
@@ -26,6 +30,8 @@ const removeDisabledFormGroup = () => {
 
 const resetFormGroup = () => {
   formGroup.forEach((form) => form.reset());
+  adFormPhoto.children[0].remove();
+  adFormHeaderPreview.src = HEADER_PREVIEW_IMG;
 };
 
 export { removeDisabledFormGroup , resetFormGroup, onDisabledForm };

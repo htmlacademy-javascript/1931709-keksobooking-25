@@ -1,4 +1,4 @@
-import { API_DATA, OFFER_LENGTH, FORM_URL } from './data.js';
+import { API_DATA, FORM_URL } from './data.js';
 
 const getCardsData = (onSucces, onError) => {
   fetch(API_DATA)
@@ -10,7 +10,7 @@ const getCardsData = (onSucces, onError) => {
       throw new Error();
     })
     .then((cards) => {
-      onSucces(cards.slice(0, OFFER_LENGTH));
+      onSucces(cards);
     })
     .catch((err) => {
       onError(err.message);

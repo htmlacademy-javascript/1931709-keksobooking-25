@@ -30,7 +30,11 @@ const removeDisabledFormGroup = () => {
 
 const resetFormGroup = () => {
   formGroup.forEach((form) => form.reset());
-  adFormPhoto.children[0].remove();
+
+  if(adFormPhoto.children.length) {
+    adFormPhoto.children[0].remove();
+  }
+
   adFormHeaderPreview.src = HEADER_PREVIEW_IMG;
 };
 

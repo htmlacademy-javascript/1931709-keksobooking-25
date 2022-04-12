@@ -8,16 +8,16 @@ const housingImagesPreview = document.querySelector('.ad-form__photo');
 
 avatarField.addEventListener('change', (evt) => addPreviewImage(evt, headerPreview));
 
-
 housingImagesField.addEventListener('change', (evt) => {
+  const imageElement = document.createElement('img');
+
   if (housingImagesPreview.children.length) {
     housingImagesPreview.children[0].remove();
   }
 
-  const img = document.createElement('img');
-  img.width = FORM_PHOTOS_SIZE;
-  img.height = FORM_PHOTOS_SIZE;
-  housingImagesPreview.append(img);
+  imageElement.width = FORM_PHOTOS_SIZE;
+  imageElement.height = FORM_PHOTOS_SIZE;
+  housingImagesPreview.append(imageElement);
 
-  addPreviewImage(evt, img);
+  addPreviewImage(evt, imageElement);
 });

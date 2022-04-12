@@ -63,6 +63,7 @@ function getRoomsForGuests(rooms) {
     errorCapacityMessage = 'Для гостей';
     return false;
   }
+
   return true;
 }
 

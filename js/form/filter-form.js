@@ -16,7 +16,7 @@ const getCardsFeaturesRank = (card) => {
   let rank = 0;
   const { offer } = card;
 
-  if(offer.features) {
+  if (offer.features) {
     if (wifi.checked && offer.features.includes(wifi.value)) {
       rank += 1;
     }
@@ -58,7 +58,7 @@ const getFormData = () => {
   const initialData = new FormData(form);
   const formData = {};
 
-  for(const [key, value] of initialData.entries()) {
+  for (const [key, value] of initialData.entries()) {
     const objKey = key.replace('housing-', '');
     formData[objKey] = value;
   }
@@ -79,7 +79,7 @@ const isPrice = (offer, price) => {
   return true;
 };
 
-const isType = (offer,type) => {
+const isType = (offer, type) => {
   if (type !== Default.TYPE) {
     return offer.type === type;
   }

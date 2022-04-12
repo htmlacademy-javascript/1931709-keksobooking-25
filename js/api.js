@@ -6,7 +6,6 @@ const getCardsData = (onSucces, onError) => {
       if (response.ok) {
         return response.json();
       }
-
       throw new Error();
     })
     .then((cards) => {

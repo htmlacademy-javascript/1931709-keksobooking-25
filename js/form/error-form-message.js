@@ -25,16 +25,18 @@ function onHideErrorMessage(evt){
   }
 }
 
-const errorMapMessage = () => {
+function errorMapMessage() {
   const formFilter = document.querySelector('.map__filters');
   const main = document.querySelector('main');
   const reject = document.querySelector('#reject').content;
   const content = reject.querySelector('.reject').cloneNode(true);
+
   main.append(content);
+
   onDisabledForm(formFilter);
   setTimeout(() => {
     main.querySelector('.reject').remove();
   }, MAP_ERROR_TIME_OUT);
-};
+}
 
 export { showError, errorMapMessage};

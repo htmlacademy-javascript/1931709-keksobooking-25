@@ -2,6 +2,7 @@ import { MAX_PRICE } from './data.js';
 import { priceField } from './form/validate-ad-form.js';
 
 const sliderElement = document.querySelector('.ad-form__slider');
+
 noUiSlider.create(sliderElement, {
   range: {
     min: 0,
@@ -27,7 +28,7 @@ sliderElement.noUiSlider.on('update', () => {
 priceField.addEventListener('input', (evt) => {
   let value = evt.target.value;
 
-  if(!value) {
+  if (!value) {
     value = ' ';
     return value;
   }

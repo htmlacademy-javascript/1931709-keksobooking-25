@@ -8,7 +8,7 @@ noUiSlider.create(sliderElement, {
     min: 0,
     max: MAX_PRICE,
   },
-  start: 5000,
+  start: 1000,
   step: 1,
   connect: 'lower',
   format: {

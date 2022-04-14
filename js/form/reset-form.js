@@ -18,13 +18,13 @@ function showSuccessMessage() {
 function onHideSuccessMessageKeyDown(evt){
   if (isEscapeKey(evt)) {
     hideSuccessMessage();
-    document.removeEventListener('keydown', onHideSuccessMessageKeyDown);
   }
 }
 
 function hideSuccessMessage() {
   document.querySelector('.success').remove();
   document.removeEventListener('click', hideSuccessMessage);
+  document.removeEventListener('keydown', onHideSuccessMessageKeyDown);
 }
 
 function resetForm() {

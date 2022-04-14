@@ -9,19 +9,19 @@ function showError() {
   const content = errorMessageTemplate.querySelector('.error').cloneNode(true);
   document.body.appendChild(content);
 
-  document.body.querySelector('.error').addEventListener('click', hideErrorMessage);
-  document.addEventListener('keydown', onHideErrorMessage);
+  document.body.querySelector('.error').addEventListener('click', onHideErrorMessage);
+  document.addEventListener('keydown', onKeyDownHideErrorMessage);
 }
 
-function hideErrorMessage() {
+function onHideErrorMessage() {
   document.body.querySelector('.error').remove();
-  document.removeEventListener('keydown', onHideErrorMessage);
+  document.removeEventListener('keydown', onKeyDownHideErrorMessage);
   switchOnSubmitBtn();
 }
 
-function onHideErrorMessage(evt){
+function onKeyDownHideErrorMessage(evt){
   if (isEscapeKey(evt)) {
-    hideErrorMessage();
+    onHideErrorMessage();
   }
 }
 

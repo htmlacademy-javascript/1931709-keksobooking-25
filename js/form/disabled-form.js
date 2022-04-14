@@ -1,6 +1,7 @@
 import { HEADER_PREVIEW_IMG } from '../data.js';
 
 const formFilter = document.forms[0];
+const adForm = document.forms[1];
 const adFormPhoto = document.querySelector('.ad-form__photo');
 const adFormHeaderPreview = document.querySelector('.ad-form-header__preview img');
 
@@ -25,7 +26,7 @@ const removeDisabledForm = () => {
 };
 
 const resetFormGroup = () => {
-  formFilter.reset();
+  adForm.reset();
 
   if (adFormPhoto.children.length) {
     adFormPhoto.children[0].remove();

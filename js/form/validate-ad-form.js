@@ -11,7 +11,7 @@ const timeField = adForm.querySelector('.ad-form__element--time');
 const timeSelectGroup = timeField.querySelectorAll('select');
 const submitBtn = document.querySelector('.ad-form__submit');
 
-let minPriceValue = housePriceTypes.house;
+let minPriceValue = housePriceTypes.flat;
 let errorCapacityMessage = '';
 
 const pristine = new Pristine(adForm, {
@@ -23,29 +23,25 @@ const pristine = new Pristine(adForm, {
   errorTextClass: 'text-help',
 }, true);
 
-function changePriceMinValue(evt) {
+const onChangePriceMinValue = (evt) => {
   const value = evt.target.value;
   minPriceValue = housePriceTypes[value];
   priceField.placeholder = minPriceValue;
 
   return minPriceValue;
-}
+};
 
-function validatePrice(value) {
+const validatePrice = (value) => {
   const minValue = Number(priceField.placeholder);
 
   return value >= minValue;
-}
+};
 
-function getErrorMessagePrice() {
-  return `Не меньше ${minPriceValue} руб.`;
-}
+const getErrorMessagePrice = () => `Не меньше ${minPriceValue} руб.`;
 
-function validateMinLength(value) {
-  return value.length > TITLE_MIN_LENGTH;
-}
+const validateMinLength = (value) => value.length > TITLE_MIN_LENGTH;
 
-function getRoomsForGuests(rooms) {
+const getRoomsForGuests = (rooms) => {
   const guests = Number(capacitySelect.value);
   rooms = Number(rooms);
 
@@ -65,15 +61,11 @@ function getRoomsForGuests(rooms) {
   }
 
   return true;
-}
+};
 
-function getCapacityErrorMessage() {
-  return errorCapacityMessage;
-}
+const getCapacityErrorMessage = () => errorCapacityMessage;
 
-function getTitleLengthMessage() {
-  return `От ${TITLE_MIN_LENGTH} до ${TITLE_MAX_LENGTH} символов`;
-}
+const getTitleLengthMessage = () => `От ${TITLE_MIN_LENGTH} до ${TITLE_MAX_LENGTH} символов`;
 
 timeField.addEventListener('change', (evt) => {
   timeSelectGroup.forEach((select) => {
@@ -88,9 +80,9 @@ pristine.addValidator(roomsSelect, getRoomsForGuests, getCapacityErrorMessage);
 pristine.addValidator(priceField, validatePrice, getErrorMessagePrice);
 pristine.addValidator(titleField, validateMinLength, getTitleLengthMessage);
 
-typeSelect.addEventListener('change', changePriceMinValue);
+typeSelect.addEventListener('change', onChangePriceMinValue);
 
-const disabledSubmitBtn = () => {
+const disableSubmitBtn = () => {
   submitBtn.disabled = true;
 };
 
@@ -105,7 +97,7 @@ const setSubmitForm = (onSucces, onFail) => {
 
     if (isValid) {
       const formData = new FormData(evt.target);
-      disabledSubmitBtn();
+      disableSubmitBtn();
       sendData(onSucces, onFail, formData);
     }
   });

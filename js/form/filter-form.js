@@ -1,4 +1,4 @@
-import { Default, priceList } from '../data.js';
+import { DEFAULT, priceList } from '../data.js';
 
 const wifi = document.querySelector('#filter-wifi');
 const dishwasher = document.querySelector('#filter-dishwasher');
@@ -52,7 +52,6 @@ const compareCards = (cardA, cardB) => {
   return rankB - rankA;
 };
 
-
 const getFormData = () => {
   const form = document.forms[0];
   const initialData = new FormData(form);
@@ -68,58 +67,41 @@ const getFormData = () => {
   return formData;
 };
 
-const isPrice = (offer, price) => {
+const isBooleanValue = (value, type) => {
+  if (value !== DEFAULT) {
+    return String(type) === value;
+  }
+
+  return true;
+};
+
+const isPrice = (price, type) => {
   const low = price[0];
   const high = price[1];
 
-  if (offer !== Default.PRICE) {
-    return offer.price >= low && offer.price <= high;
+  if (price !== DEFAULT) {
+    return type >= low && type <= high;
   }
 
   return true;
 };
-
-const isType = (offer, type) => {
-  if (type !== Default.TYPE) {
-    return offer.type === type;
-  }
-
-  return true;
-};
-
-const isRooms = (offer, rooms) => {
-  if (rooms !== Default.ROOMS) {
-    return offer.rooms === +rooms;
-  }
-
-  return true;
-};
-
-const isGuests = (offer, guests) => {
-  if (guests !== Default.GUESTS) {
-    return offer.guests === +guests;
-  }
-
-  return true;
-};
-
 
 const isFilteredCard = (offer, data) => {
   const { type, price, rooms, guests } = data;
 
-  if (!isType(offer, type)) {
+  if (!isBooleanValue(type, offer.type)){
     return false;
   }
 
-  if (!isPrice(offer, price)) {
+  if (!isPrice(price, offer.price)) {
     return false;
   }
 
-  if (!isRooms(offer, rooms)) {
+  if (!isBooleanValue(rooms, offer.rooms)){
     return false;
   }
 
-  if (!isGuests(offer, guests)) {
+  if (!isBooleanValue(guests, offer.guests)){
     return false;
   }
 

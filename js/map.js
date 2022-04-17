@@ -8,6 +8,7 @@ import { errorMapMessage } from './form/error-form-message.js';
 
 const address = document.querySelector('#address');
 const map = L.map('map-canvas').setView(getInitialCoords(), ZOOM_MAP);
+let similarCards = [];
 
 L.tileLayer(OPEN_SOURCE_MAP, { attribution: MAP_ATTRIBUTE }).addTo(map);
 
@@ -29,6 +30,7 @@ marker.on('drag', (evt) => {
 
 const renderCardsOnMap = (cards, target) => {
   const data = getFormData();
+  similarCards = [...cards];
 
   map.closePopup();
   markerGroup.clearLayers();
@@ -58,9 +60,7 @@ const returnInitialMap = () => {
   marker.setLatLng(getInitialCoords());
   map.setView(getInitialCoords(), ZOOM_MAP);
   map.closePopup();
-  getCardsData((cards) => {
-    renderCardsOnMap(cards);
-  }, errorMapMessage);
+  renderCardsOnMap(similarCards);
 };
 
 marker.addTo(map);

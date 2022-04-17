@@ -4,6 +4,7 @@ import { getInitialSliderPosition } from '../slider.js';
 import { switchOnSubmitBtn, pristine } from './validate-ad-form.js';
 import { isEscapeKey } from '../util.js';
 
+
 const resetBtn = document.querySelector('.ad-form__reset');
 
 function showSuccessMessage() {
@@ -11,19 +12,19 @@ function showSuccessMessage() {
   const content = success.querySelector('.success').cloneNode(true);
   document.body.appendChild(content);
 
-  document.addEventListener('click', onHideSuccessMessage);
+  document.addEventListener('click', hideSuccessMessage);
   document.addEventListener('keydown', onHideSuccessMessageKeyDown);
 }
 
 function onHideSuccessMessageKeyDown(evt){
   if (isEscapeKey(evt)) {
-    onHideSuccessMessage();
+    hideSuccessMessage();
   }
 }
 
-function onHideSuccessMessage() {
+function hideSuccessMessage() {
   document.querySelector('.success').remove();
-  document.removeEventListener('click', onHideSuccessMessage);
+  document.removeEventListener('click', hideSuccessMessage);
   document.removeEventListener('keydown', onHideSuccessMessageKeyDown);
 }
 
